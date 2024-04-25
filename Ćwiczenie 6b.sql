@@ -160,14 +160,14 @@ LEFT JOIN ksiegowosc.premie premie ON w.id_premii = premie.id_premii;
 
 
 --f
-SELECT 
-    CONCAT('Pracownik ', p.imie, ' ', p.nazwisko, ', w dniu ', 
-    TO_CHAR(w.data, 'DD.MM.YYYY'), ' otrzymał pensję całkowitą na kwotę ',
-    (pensja.kwota), ' zł, gdzie ',
-    'wynagrodzenie zasadnicze wynosiło: ', pensja.kwota, ' zł, premia: ', premie.kwota, ' zł.') AS raport
+SELECT CONCAT('Pracownik ', p.imie, ' ', p.nazwisko,', w dniu ', w.data, ' otrzymał pensję całkowitą na kwotę ',
+(pensja.kwota + premie.kwota), ' zł, gdzie wynagrodzenie zasadnicze wynosiło: ',
+pensja.kwota, ' zł, premia: ', premie.kwota, ' zł, nadgodziny: 0 zł') AS raport
 FROM ksiegowosc.pracownicy p
 JOIN ksiegowosc.wynagrodzenie w ON p.id_pracownika = w.id_pracownika
 JOIN ksiegowosc.pensja pensja ON w.id_pensji = pensja.id_pensji
-LEFT JOIN ksiegowosc.premie premie ON w.id_premii = premie.id_premii
+LEFT JOIN ksiegowosc.premie premie ON w.id_premii = premie.id_premii;
+
+
 ;
 
